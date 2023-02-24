@@ -1,0 +1,181 @@
+SELENIUM
+========
+Date: 3:44 PM 2/20/2023
+
+Introduction to software Testing
+--------------------------------
+Software testing is defined as an activity to check whether the actual result match with the expected results and ensure that the software system is defect free. 
+
+Types of software Tessting
+
+Automated Testing 	|	Manual Testing
+-----------------		--------------
+-> Test cases are executed automatically |  Test cases are executed manually
+-> More accurate 	|	Less accurate
+-> More suitable when test cases are run repeatedly	| More suitable when test cases ae supposed to run once or twice
+-> Suitable for scenarios when testing is functionality based | More suitable when testing is for user experience
+
+Inroduction to Continuous Testing
+---------------------------------
+Continuouse Testing is the process of executing automated tests as part of the software delivery pipeline in order to obtain feedback on the business risks associated with a software release candidate as repidly as possible. 
+
+Products are build with thier respective test suites while the features are being developed 
+
+AUTOMATED TESTING TOOLS
+-----------------------
+Example of Automated testing tools are below
+-> Selenium 
+-> Appium
+-> Cucumber
+-> Telerik Test Studio
+
+INTRODUCTION TO SELENIUM
+------------------------
+
+What is Selenium ?
+-> Selenium is a portable framework for testing web applications. Selenium provides a playback tool for authoring functional tests without the need to learn a new test scripting language. 
+
+Selenium support Java, Python and other too.
+
+-> Selenium was first created by Jason Huggins in 2004
+-> He was working on a web application which had to be frequently tested
+-> Since manual testing was taking a lots of time, he wrote a JavaScript program.
+-> This program cound automatically control the brower's actions.
+-> He named it as JavaScriptTestRunner ans donated it to the open-source community 
+-> It was later names as Selenium Code.
+
+Components of Selenium
+But only the Selenium Core could not suffice all the use cases to testing, Hence, a suite of Selenium components was developed for different purposes.
+-> Selenium RC
+-> Selenium IDE
+-> Selenium Grid
+-> WebDriver
+
+SELENIUM RC
+-----------
+-> Due to some origin policy, testers has to install Selenium and the web server on their local system.
+-> This was done to keep the domain same for the Selenium Core and the web application to be tested.
+-> Seleniu RC(Remote Control) is web server, which acts as an HTTP proxy.
+-> It tricks the OS into believing both Selenium Core and the website to be tested are on the same domain.
+-> This system was also known as Selenium 1
+
+SELENIUM IDE (Intigrated development enviroment)
+-----------
+-> Selenium IDE was originally created as a firefox extension.
+-> It could automate tests using the record and playback feature.
+-> The intention behind creating this component was to increase the speed of creating test cases in Selenium.
+-> It was created by Shinya Kasatani from Japan.
+
+SELENIUM GRID
+--------------
+-> Selenium Grid enabled parallel testing of application on multiple machine.
+-> It was primarily created to minimize the time taken in executing test case
+-> It can be used across multiple brousers and OS.
+-> It can also be used to breask down a huge test suie among many computers testing the same application. 
+
+WEBDRIVER
+---------
+-> Selenium WebDriver was the firest cross-platform testing framework that could control the browser from the OS level.
+-> It was developed in 2006, when web applications and browsers were becoming more powerful and restrictive with JavaScript program like Selenium Core.
+-> It was batter than Selenium IDE and RC.
+-> It controls the browser by directly communicating with it. 
+
+
+WHAT IS MAVEN ?
+--------------
+Maven is a build automation tools used primaril for Java projects. Maven addresses two aspects of building software: First it describe how a software is build and second it describes its dependencies. 
+
+Why do we need Maven ?
+--------------------
+-> Maven is used to download dependencies for a software program.
+-> Dependencies to be downloaded are included inside a POM file.
+-> Once the dependencies are added in the POM file, simply save the project and all the dependencies with automatically be downloaded. 
+
+Setting up Selenium with Maven
+-> Install Java
+-> Download and Install Eclipse for Developers
+-> Create a Maven Project
+-> Acquire Maven Dependencies for Selenium
+
+
+Date: 4:12 PM 2/21/2023
+
+CREATING AUTOMATED TESTS.
+-------------------------
+There are 3 steps to executing a web test:
+-> Find the element on web browser.
+-> Perform an action on the found elements
+-> Test and create a test report with the results
+
+Finding Elements in Seleniqum
+An element can be found on a web page using the following selectors
+-> ID
+-> Name
+-> ClassName
+-> Tag Name
+-> Link Text
+-> Partial Link Text
+-> XPATH 
+
+Performing Action on Elements
+The next step is taking an action. for that, we can try the following options:
+-> Click(): Used to check on the link and wait for page load to complete before proceeding to the next command
+-> sendKeys(): Used to enter values onto the text boxes
+-> Clear(): Used to clear text boxes of its current value
+-> Submit(): WebDriver will automatically trigger the submit function of the form where that element belongs to 
+
+Example Syntax
+
+WebElement button = driver.findElement(By.className("CwaK9")).click(); 
+
+TESTING & REPORTING IS SELENIUM USING TESTNG
+--------------------------------------------
+What is TestNG ?
+TestNG is an open-source automated testing framework, where NG means "Next Generation". It is a testing framework inspired from JUnit and NUnit, but introducing some new functionalities makes it more powerful and easier to use. 
+
+Features of TestNG 
+-> TestNG annotations are easy to create test cases
+-> Test cases can be grouped and prioritized more easily
+-> It support parameterization.
+-> It supports data-driven testing using Data Providers
+-> It generates HTML reports.
+-> Parallel test execution is possible.
+-> It readly supports intergration with other tools and plug-ins like Eclipse IDE, build tools Ant, Maven etc..
+
+
+Annotations in TestNG
+Annotations in TestNG are used to decide the flow of the program. There are a lot of annotations in TestNG, we will focus on the most used once and following are the same:
+-> @BeforeMethod: This will be executed before every @test annotated method.
+-> @AfterMethod: This will be executed after every @test annotated method.
+-> @BeforeClass: This will be executed before first @Test method execution. It will be executed one only time throughout the test case
+-> @AfterClass: This will be executed after all test methods in the current class have been run
+-> @BeforeTest: This will be executed before the first @Test annotated method. It can be executed multiple times before the test case.
+-> @AfterTest: A method with this annotation will be executed when all @Test annotated methods complete the execution of those classes inside the <test> tag in the TestNG.xml file.
+-> @BeforeSuite: It will run only once, before all tests in the suite are executed.
+-> @AfterSuite: A method with this annotation will run once after the execution of all tests in the suite is complete.
+-> @BeforeGroups: This method will run before the first test run of that specific group.
+-> @AfterGroups: This method will run after all test methods of that group complete thier execution. 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+
+
