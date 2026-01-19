@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Darole.org | Secure Dashboard</title>
+
+<!-- Font Awesome -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+<style>
+:root {
+  --bg: #0b1220;
+  --card: #111827;
+  --accent: #38bdf8;
+  --accent-soft: rgba(56,189,248,0.15);
+  --text: #e5e7eb;
+  --muted: #9ca3af;
+  --danger: #ef4444;
+  --border: #1f2937;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: "Segoe UI", system-ui, sans-serif;
+  background: radial-gradient(circle at top, #0f172a, #020617);
+  color: var(--text);
+}
+
+/* ---------- LOGIN ---------- */
+.login-container {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.login-box {
+  background: linear-gradient(180deg, #0f172a, #020617);
+  padding: 32px;
+  width: 340px;
+  border-radius: 18px;
+  border: 1px solid var(--border);
+  box-shadow: 0 30px 60px rgba(0,0,0,0.6);
+  text-align: center;
+}
+
+.login-box .logo {
+  font-size: 2.8rem;
+  color: var(--accent);
+  margin-bottom: 10px;
+}
+
+.login-box h2 {
+  margin: 10px 0 5px;
+}
+
+.login-box p {
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+.input-group {
+  position: relative;
+  margin-top: 14px;
+}
+
+.input-group i {
+  position: absolute;
+  top: 50%;
+  left: 12px;
+  transform: translateY(-50%);
+  color: var(--muted);
+}
+
+.login-box input {
+  width: 100%;
+  padding: 12px 12px 12px 38px;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  background: #020617;
+  color: var(--text);
+  outline: none;
+}
+
+.login-box button {
+  width: 100%;
+  padding: 12px;
+  margin-top: 16px;
+  background: linear-gradient(135deg, var(--accent), #0ea5e9);
+  border: none;
+  border-radius: 10px;
+  font-weight: bold;
+  cursor: pointer;
+  color: #020617;
+}
+
+.error {
+  color: var(--danger);
+  font-size: 0.85rem;
+  margin-top: 10px;
+}
+
+/* ---------- DASHBOARD ---------- */
+#dashboard {
+  display: none;
+}
+
+header {
+  padding: 22px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid var(--border);
+  background: rgba(2,6,23,0.7);
+  backdrop-filter: blur(10px);
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.brand i {
+  font-size: 1.8rem;
+  color: var(--accent);
+}
+
+header h1 {
+  font-size: 1.3rem;
+  margin: 0;
+}
+
+header button {
+  background: transparent;
+  border: 1px solid var(--accent);
+  color: var(--accent);
+  padding: 6px 16px;
+  border-radius: 20px;
+  cursor: pointer;
+}
+
+.container {
+  max-width: 1250px;
+  margin: 30px auto;
+  padding: 0 20px;
+}
+
+.section {
+  margin-bottom: 50px;
+}
+
+.section h2 {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 1.2rem;
+  margin-bottom: 20px;
+}
+
+.section h2 i {
+  color: var(--accent);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 22px;
+}
+
+.card {
+  background: linear-gradient(180deg, #0f172a, #020617);
+  padding: 20px;
+  border-radius: 16px;
+  border: 1px solid var(--border);
+  transition: 0.35s;
+  position: relative;
+  overflow: hidden;
+}
+
+.card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(120deg, transparent, var(--accent-soft), transparent);
+  opacity: 0;
+  transition: 0.3s;
+}
+
+.card:hover::before {
+  opacity: 1;
+}
+
+.card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 20px 40px rgba(0,0,0,0.6);
+}
+
+.card a {
+  text-decoration: none;
+  color: var(--text);
+  display: block;
+}
+
+.card-icon {
+  font-size: 1.8rem;
+  color: var(--accent);
+  margin-bottom: 10px;
+}
+
+.card-title {
+  font-size: 1.05rem;
+  font-weight: 600;
+}
+
+.card-desc {
+  color: var(--muted);
+  font-size: 0.9rem;
+  margin-top: 6px;
+}
+
+footer {
+  text-align: center;
+  padding: 20px;
+  border-top: 1px solid var(--border);
+  color: var(--muted);
+  font-size: 0.85rem;
+}
+</style>
+</head>
+
+<body>
+
+<!-- LOGIN -->
+<div class="login-container" id="login">
+  <div class="login-box">
+    <div class="logo"><i class="fa-solid fa-shield-halved"></i></div>
+    <h2>Secure Login</h2>
+    <p>Darole.org Infrastructure</p>
+
+    <div class="input-group">
+      <i class="fa-solid fa-user"></i>
+      <input type="text" id="username" placeholder="Username">
+    </div>
+
+    <div class="input-group">
+      <i class="fa-solid fa-lock"></i>
+      <input type="password" id="password" placeholder="Password">
+    </div>
+
+    <button onclick="login()"><i class="fa-solid fa-right-to-bracket"></i> Login</button>
+    <div class="error" id="error"></div>
+  </div>
+</div>
+
+<!-- DASHBOARD -->
+<div id="dashboard">
+
+<header>
+  <div class="brand">
+    <i class="fa-solid fa-server"></i>
+    <h1>Darole.org Infrastructure Dashboard</h1>
+  </div>
+  <button onclick="logout()"><i class="fa-solid fa-arrow-right-from-bracket"></i> Logout</button>
+</header>
+
+<div class="container">
+
+  <!-- Monitoring -->
+  <div class="section">
+    <h2><i class="fa-solid fa-chart-line"></i> Monitoring & DevOps</h2>
+    <div class="grid">
+      <div class="card"><a href="http://gra01.darole.org:3000/" target="_blank">
+        <div class="card-icon"><i class="fa-solid fa-gauge-high"></i></div>
+        <div class="card-title">Grafana</div>
+        <div class="card-desc">Metrics dashboards</div>
+      </a></div>
+
+      <div class="card"><a href="http://gra01.darole.org:9090/" target="_blank">
+        <div class="card-icon"><i class="fa-solid fa-wave-square"></i></div>
+        <div class="card-title">Prometheus</div>
+        <div class="card-desc">Metrics collection</div>
+      </a></div>
+
+      <div class="card"><a href="http://zap01.darole.org/zabbix" target="_blank">
+        <div class="card-icon"><i class="fa-solid fa-eye"></i></div>
+        <div class="card-title">Zabbix</div>
+        <div class="card-desc">Infra monitoring</div>
+      </a></div>
+
+      <div class="card"><a href="http://son01.darole.org:9000/" target="_blank">
+        <div class="card-icon"><i class="fa-solid fa-code"></i></div>
+        <div class="card-title">SonarQube</div>
+        <div class="card-desc">Code quality</div>
+      </a></div>
+
+      <div class="card"><a href="http://jen01.darole.org:8080/" target="_blank">
+        <div class="card-icon"><i class="fa-brands fa-jenkins"></i></div>
+        <div class="card-title">Jenkins</div>
+        <div class="card-desc">CI/CD</div>
+      </a></div>
+    </div>
+  </div>
+
+  <!-- Docker -->
+  <div class="section">
+    <h2><i class="fa-brands fa-docker"></i> Docker Hosted Websites</h2>
+    <div class="grid">
+      <div class="card"><a href="http://online-education.darole.org/" target="_blank">
+        <div class="card-icon"><i class="fa-solid fa-graduation-cap"></i></div>
+        <div class="card-title">Online Education</div>
+        <div class="card-desc">Docker hosted web app</div>
+      </a></div>
+
+      <div class="card"><a href="http://ninom.darole.org/" target="_blank">
+        <div class="card-icon"><i class="fa-solid fa-layer-group"></i></div>
+        <div class="card-title">Ninom</div>
+        <div class="card-desc">Docker website</div>
+      </a></div>
+
+      <div class="card"><a href="http://organic-farm.darole.org/" target="_blank">
+        <div class="card-icon"><i class="fa-solid fa-leaf"></i></div>
+        <div class="card-title">Organic Farm</div>
+        <div class="card-desc">E-commerce demo</div>
+      </a></div>
+
+      <div class="card"><a href="http://travel.darole.org/" target="_blank">
+        <div class="card-icon"><i class="fa-solid fa-plane"></i></div>
+        <div class="card-title">Travel</div>
+        <div class="card-desc">Tourism website</div>
+      </a></div>
+    </div>
+  </div>
+
+<!-- Darole.org Websites -->
+<div class="section">
+  <h2><i class="fa-solid fa-globe"></i> Darole.org Websites</h2>
+
+  <div class="grid">
+
+    <div class="card">
+      <a href="http://lamp01.darole.org/" target="_blank">
+        <div class="card-icon">
+          <i class="fa-solid fa-lightbulb"></i>
+        </div>
+        <div class="card-title">Job Search Portal Development</div>
+        <div class="card-desc">lamp01.darole.org</div>
+      </a>
+    </div>
+
+    <div class="card">
+      <a href="http://jobsearch.darole.org/" target="_blank">
+        <div class="card-icon">
+          <i class="fa-solid fa-briefcase"></i>
+        </div>
+        <div class="card-title">Job Search Portal</div>
+        <div class="card-desc">jobsearch.darole.org</div>
+      </a>
+    </div>
+
+    <div class="card">
+      <a href="http://tomd01.darole.org:8080/" target="_blank">
+        <div class="card-icon">
+          <i class="fa-solid fa-code"></i>
+        </div>
+        <div class="card-title">Tomcat Development</div>
+        <div class="card-desc">Development Environment</div>
+      </a>
+    </div>
+
+    <div class="card">
+      <a href="http://tomp01.darole.org:8080/" target="_blank">
+        <div class="card-icon">
+          <i class="fa-solid fa-rocket"></i>
+        </div>
+        <div class="card-title">Tomcat Production</div>
+        <div class="card-desc">Production Environment</div>
+      </a>
+    </div>
+
+  </div>
+</div>
+
+
+  <!-- VMware -->
+  <div class="section">
+    <h2><i class="fa-solid fa-cloud"></i> VMware & Virtualization</h2>
+    <div class="grid">
+      <div class="card"><a href="https://vcenter01.darole.org/ui/" target="_blank">
+        <div class="card-icon"><i class="fa-solid fa-network-wired"></i></div>
+        <div class="card-title">vCenter</div>
+        <div class="card-desc">VM management portal</div>
+      </a></div>
+
+      <div class="card"><a href="https://vcenter01.darole.org:5480/" target="_blank">
+        <div class="card-icon"><i class="fa-solid fa-screwdriver-wrench"></i></div>
+        <div class="card-title">vCenter Appliance</div>
+        <div class="card-desc">VAMI interface</div>
+      </a></div>
+
+      <div class="card"><a href="https://esxi01.darole.org/ui/#/login" target="_blank">
+        <div class="card-icon"><i class="fa-solid fa-microchip"></i></div>
+        <div class="card-title">ESXi-01</div>
+        <div class="card-desc">Hypervisor host</div>
+      </a></div>
+
+      <div class="card"><a href="https://esxi02.darole.org/ui/#/login" target="_blank">
+        <div class="card-icon"><i class="fa-solid fa-microchip"></i></div>
+        <div class="card-title">ESXi-02</div>
+        <div class="card-desc">Hypervisor host</div>
+      </a></div>
+    </div>
+  </div>
+
+</div>
+
+<footer>
+  © 2025 Darole.org | Maintained by Vallabh Darole
+</footer>
+
+</div>
+
+<script>
+const VALID_USER = "admin";
+const VALID_PASS = "redhat";
+
+function login() {
+  const u = document.getElementById("username").value;
+  const p = document.getElementById("password").value;
+
+  const loginDiv = document.getElementById("login");
+  const dashDiv  = document.getElementById("dashboard");
+  const err      = document.getElementById("error");
+
+  if (u === VALID_USER && p === VALID_PASS) {
+    sessionStorage.setItem("auth", "true");
+    loginDiv.style.display = "none";
+    dashDiv.style.display = "block";
+  } else {
+    err.textContent = "Invalid username or password";
+  }
+}
+
+function logout() {
+  sessionStorage.removeItem("auth");
+  location.reload();
+}
+
+/* Auto-login if session exists */
+window.onload = function () {
+  if (sessionStorage.getItem("auth") === "true") {
+    document.getElementById("login").style.display = "none";
+    document.getElementById("dashboard").style.display = "block";
+  }
+};
+</script>
+
+
+</body>
+</html>
